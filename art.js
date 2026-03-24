@@ -792,7 +792,7 @@ window.COUNTRY = Object.freeze([
     nation: "China",
     material: "Stone / Concrete",
     setting: "Mountain / Highland",
-    hint: "Spanning 13,000 miles of mountain ridge, desert, and plain across northern China, the Wall is the longest earthwork in human history—a continuous fortification that also functions as the world's most ambitious landscape intervention."
+    hint: "Though begun in earlier dynasties, the iconic brick-and-mortar sections spanning 13,000 miles of ridge and plain across northern China were largely rebuilt by the Ming Dynasty (1368–1644)—making it the longest earthwork in human history."
   },
 
   // ── PAINTINGS & SCULPTURES ──────────────────────────────────────────────────
