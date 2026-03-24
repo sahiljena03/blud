@@ -1,5 +1,92 @@
 // ═════════════════════════════════════════════════════════════════════════════
-//  CANVAS — animated ocean background (all 6 layers per ABZU-UI skill)
+//  MODE — current view ('tiamat' | 'country')
+// ═════════════════════════════════════════════════════════════════════════════
+let currentMode = 'tiamat';
+
+function getModeConfig(mode) {
+  if (mode === 'country') {
+    return {
+      entities:    (typeof COUNTRY !== 'undefined' ? COUNTRY : []),
+      fields:      ['decade', 'style', 'nation', 'material', 'setting'],
+      fieldLabels: { decade:'Decade', style:'Style', nation:'Nation', material:'Material', setting:'Setting' },
+      title:       'country',
+      subtitle:    'identify the land art piece',
+      placeholder: 'name a land art piece…',
+      storageKey:  'country-v1',
+      acMeta:      e => `${e.nation} · ${e.style}`,
+      toastUnknown:'Unknown artwork — choose from the list.',
+      toastRepeat: 'Already examined — try another.',
+      verdictWon:  n => `✦ identified on guess ${n}`,
+      verdictLost: 'the artwork was',
+      countdown:   'next artwork surfaces in',
+      shareTitle:  'country',
+      legendLevels: `
+        <div class="level-item">
+          <div class="level-key">Decade</div>
+          <div class="level-vals">Ancient · 1930s · 1940s<br>1960s · 1970s · 1980s<br>1990s · 2000s · 2010s</div>
+        </div>
+        <div class="level-item">
+          <div class="level-key">Style</div>
+          <div class="level-vals">Earthwork · Environmental Art<br>Site-Specific Installation<br>Monumental Sculpture<br>Conceptual Land Art<br>Ecological Art</div>
+        </div>
+        <div class="level-item">
+          <div class="level-key">Nation</div>
+          <div class="level-vals">USA · UK · Germany<br>Netherlands · Japan · France<br>Australia · Italy · Peru<br>Chile · Finland · Ireland<br>Morocco · Mexico · China<br>Multiple</div>
+        </div>
+        <div class="level-item">
+          <div class="level-key">Material</div>
+          <div class="level-vals">Earth / Rock · Steel / Metal<br>Stone / Concrete<br>Natural Elements · Mixed Media<br>Soil / Mound · Water / Ice</div>
+        </div>
+        <div class="level-item">
+          <div class="level-key">Setting</div>
+          <div class="level-vals">Desert · Rural / Plains<br>Salt Flats · Coastal / Marine<br>Mountain / Highland · Urban<br>Forest / Woodland<br>Multiple Sites</div>
+        </div>`,
+    };
+  }
+  return {
+    entities:    (typeof ENTITIES !== 'undefined' ? ENTITIES : []),
+    fields:      ['tradition', 'category', 'domain', 'allegiance', 'form'],
+    fieldLabels: { tradition:'Tradition', category:'Category', domain:'Domain', allegiance:'Allegiance', form:'Form' },
+    title:       'tiamat',
+    subtitle:    'identify the mythological entity',
+    placeholder: 'name a deity, hero, or creature…',
+    storageKey:  'tiamat-v1',
+    acMeta:      e => `${e.tradition} · ${e.category}`,
+    toastUnknown:'Unknown entity — choose from the list.',
+    toastRepeat: 'Already summoned — try another.',
+    verdictWon:  n => `✦ identified on guess ${n}`,
+    verdictLost: 'the entity was',
+    countdown:   'next entity surfaces in',
+    shareTitle:  'tiamat',
+    legendLevels: `
+      <div class="level-item">
+        <div class="level-key">Tradition</div>
+        <div class="level-vals">Greek · Roman<br>Norse · Hindu · Buddhist</div>
+      </div>
+      <div class="level-item">
+        <div class="level-key">Category</div>
+        <div class="level-vals">God · Titan/Giant<br>Hero/Mortal · Creature/Beast<br>Spirit/Demon</div>
+      </div>
+      <div class="level-item">
+        <div class="level-key">Domain</div>
+        <div class="level-vals">Sky · Sea · War · Death<br>Wisdom · Love · Nature<br>Craft · Trickery<br>Creation · Justice · Light</div>
+      </div>
+      <div class="level-item">
+        <div class="level-key">Allegiance</div>
+        <div class="level-vals">Benevolent · Malevolent<br>Neutral · Ambiguous</div>
+      </div>
+      <div class="level-item">
+        <div class="level-key">Form</div>
+        <div class="level-vals">Humanoid · Animal<br>Hybrid · Celestial</div>
+      </div>`,
+  };
+}
+
+// Active config — updated whenever mode changes
+let cfg = getModeConfig(currentMode);
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  CANVAS — animated background (ocean for tiamat, desert for country)
 // ═════════════════════════════════════════════════════════════════════════════
 (function() {
   const canvas = document.getElementById('bg');
@@ -11,11 +98,11 @@
 
   // Orbs
   const orbs = [
-    { xf:0.12, yf:0.3,  r:0.36, h:175, op:0.09, ph:0,   sp:0.00038 },
-    { xf:0.82, yf:0.18, r:0.26, h:185, op:0.07, ph:2.1, sp:0.00027 },
-    { xf:0.52, yf:0.75, r:0.40, h:165, op:0.10, ph:1.1, sp:0.00033 },
-    { xf:0.90, yf:0.62, r:0.22, h:195, op:0.06, ph:3.4, sp:0.00048 },
-    { xf:0.28, yf:0.88, r:0.28, h:170, op:0.08, ph:0.7, sp:0.00021 },
+    { xf:0.12, yf:0.3,  r:0.36, ph:0,   sp:0.00038 },
+    { xf:0.82, yf:0.18, r:0.26, ph:2.1, sp:0.00027 },
+    { xf:0.52, yf:0.75, r:0.40, ph:1.1, sp:0.00033 },
+    { xf:0.90, yf:0.62, r:0.22, ph:3.4, sp:0.00048 },
+    { xf:0.28, yf:0.88, r:0.28, ph:0.7, sp:0.00021 },
   ];
   // Rays
   const rays = Array.from({length:7}, () => ({
@@ -28,7 +115,7 @@
     yf: 0.08+i*0.082, A: (0.012+Math.random()*0.026),
     f: 0.003+Math.random()*0.005, ph: Math.random()*Math.PI*2,
     sp: 0.00022+Math.random()*0.00036, op: 0.03+Math.random()*0.055,
-    col: i%3===0 ? '#48d8c8' : '#10b8a8',
+    idx: i,
   }));
   // Particles
   const parts = Array.from({length:240}, (_, i) => {
@@ -41,34 +128,62 @@
       pulse: 0, bubble: b,
     };
   });
-  // Shimmer
+  // Shimmer / glints
   const glints = Array.from({length:22}, () => ({
     x: Math.random(), y: 0.12+Math.random()*0.13, w: 2+Math.random()*7,
     age: Math.random()*1600, dur: 900+Math.random()*1200,
   }));
 
+  // Theme palettes
+  const THEME = {
+    tiamat: {
+      bg:      ['#040c12','#060e18','#08121e','#050a14'],
+      orbH:    [175, 185, 165, 195, 170], orbS: '78%', orbL: '44%', orbOp: [0.09,0.07,0.10,0.06,0.08],
+      ray:     [160,240,208],
+      line0:   '#48d8c8', line1: '#10b8a8',
+      bubble:  [180,248,232],
+      particle:[16,184,168],
+      glint:   '#c0f8f0',
+    },
+    country: {
+      bg:      ['#0a0703','#100c05','#180f06','#0c0802'],
+      orbH:    [30, 28, 35, 22, 32], orbS: '70%', orbL: '38%', orbOp: [0.09,0.07,0.10,0.06,0.08],
+      ray:     [218,168,64],
+      line0:   '#d09038', line1: '#a06820',
+      bubble:  [210,168,80],
+      particle:[168,104,28],
+      glint:   '#e0c060',
+    },
+  };
+
   function draw(ts) {
+    const t = THEME[currentMode] || THEME.tiamat;
     const g = ctx.createLinearGradient(0,0,0,H);
-    g.addColorStop(0,'#040c12'); g.addColorStop(0.35,'#060e18');
-    g.addColorStop(0.65,'#08121e'); g.addColorStop(1,'#050a14');
+    g.addColorStop(0, t.bg[0]); g.addColorStop(0.35, t.bg[1]);
+    g.addColorStop(0.65, t.bg[2]); g.addColorStop(1, t.bg[3]);
     ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
 
-    for (const o of orbs) {
+    for (let oi=0; oi<orbs.length; oi++) {
+      const o = orbs[oi];
       const r = o.r*Math.min(W,H)*(1+Math.sin(ts*o.sp+o.ph)*0.11);
       const rg = ctx.createRadialGradient(o.xf*W,o.yf*H,0,o.xf*W,o.yf*H,r);
-      rg.addColorStop(0,`hsla(${o.h},78%,44%,${o.op})`); rg.addColorStop(1,'transparent');
+      rg.addColorStop(0,`hsla(${t.orbH[oi]},${t.orbS},${t.orbL},${t.orbOp[oi]})`); rg.addColorStop(1,'transparent');
       ctx.fillStyle=rg; ctx.beginPath(); ctx.arc(o.xf*W,o.yf*H,r,0,Math.PI*2); ctx.fill();
     }
     for (const ray of rays) {
       ray.x += 0.000075; if(ray.x>1.2) ray.x=-0.2;
       const x0=ray.x*W, dx=Math.sin(ray.angle)*ray.len*H, dy=Math.cos(ray.angle)*ray.len*H;
       const rg=ctx.createLinearGradient(x0,0,x0+dx,dy);
-      rg.addColorStop(0,'rgba(160,240,208,0)'); rg.addColorStop(0.3,`rgba(160,240,208,${ray.op})`); rg.addColorStop(1,'rgba(160,240,208,0)');
+      rg.addColorStop(0,`rgba(${t.ray[0]},${t.ray[1]},${t.ray[2]},0)`);
+      rg.addColorStop(0.3,`rgba(${t.ray[0]},${t.ray[1]},${t.ray[2]},${ray.op})`);
+      rg.addColorStop(1,`rgba(${t.ray[0]},${t.ray[1]},${t.ray[2]},0)`);
       ctx.save(); ctx.strokeStyle=rg; ctx.lineWidth=ray.w;
       ctx.beginPath(); ctx.moveTo(x0,0); ctx.lineTo(x0+dx,dy); ctx.stroke(); ctx.restore();
     }
     for (const ln of lines) {
-      ctx.beginPath(); ctx.strokeStyle=ln.col; ctx.globalAlpha=ln.op; ctx.lineWidth=1;
+      ctx.beginPath();
+      ctx.strokeStyle = ln.idx%3===0 ? t.line0 : t.line1;
+      ctx.globalAlpha=ln.op; ctx.lineWidth=1;
       for (let px=0; px<=W; px+=3) {
         const A=ln.A*H;
         const y = ln.yf*H + A*Math.sin(px*ln.f+ts*ln.sp+ln.ph)
@@ -83,7 +198,7 @@
         p.y+=p.vy; p.wobble+=0.018; p.x+=Math.sin(p.wobble)*0.0018;
         if(p.y<-0.02) p.y=1.02;
         ctx.beginPath(); ctx.arc(p.x*W,p.y*H,p.r,0,Math.PI*2);
-        ctx.fillStyle=`rgba(180,248,232,${p.op})`; ctx.fill();
+        ctx.fillStyle=`rgba(${t.bubble[0]},${t.bubble[1]},${t.bubble[2]},${p.op})`; ctx.fill();
       } else {
         p.x+=p.vx; p.y+=p.vy;
         if(p.x<0) p.x=1; if(p.x>1) p.x=0; if(p.y<0) p.y=1; if(p.y>1) p.y=0;
@@ -91,7 +206,7 @@
         else if(Math.random()<0.0002) p.pulse=500;
         const op = p.pulse>0 ? Math.min(p.op*4,0.4) : p.op;
         ctx.beginPath(); ctx.arc(p.x*W,p.y*H,p.r,0,Math.PI*2);
-        ctx.fillStyle=`rgba(16,184,168,${op})`; ctx.fill();
+        ctx.fillStyle=`rgba(${t.particle[0]},${t.particle[1]},${t.particle[2]},${op})`; ctx.fill();
       }
     }
     for (const gl of glints) {
@@ -99,7 +214,7 @@
       if(gl.age>gl.dur){ gl.age=0; gl.x=Math.random(); gl.y=0.12+Math.random()*0.13; gl.w=2+Math.random()*7; gl.dur=900+Math.random()*1200; }
       const prog=gl.age/gl.dur;
       const op=(prog<0.4?prog/0.4:(1-prog)/0.6)*0.52;
-      ctx.save(); ctx.globalAlpha=op; ctx.fillStyle='#c0f8f0';
+      ctx.save(); ctx.globalAlpha=op; ctx.fillStyle=t.glint;
       ctx.beginPath(); ctx.ellipse(gl.x*W,gl.y*H,gl.w,1,0,0,Math.PI*2); ctx.fill(); ctx.restore();
     }
   }
@@ -112,65 +227,63 @@
 //  GAME
 // ═════════════════════════════════════════════════════════════════════════════
 const MAX_GUESSES = 6;
-const FIELDS      = ['tradition','category','domain','allegiance','form'];
-const FIELD_LABELS = { tradition:'Tradition', category:'Category', domain:'Domain', allegiance:'Allegiance', form:'Form' };
 
 // ── Seeded 6-hour-period entity ──────────────────────────────────────────
 function getDayNumber() {
-  // Returns a stable period number that increments every 6 hours
   return Math.floor(Date.now() / (6 * 3600 * 1000));
 }
 
 function getDailyEntity() {
   const day = getDayNumber();
-  // Simple but stable hash over period number
   let h = day * 2654435761;
   h = (h ^ (h >>> 16)) >>> 0;
-  return ENTITIES[h % ENTITIES.length];
+  return cfg.entities[h % cfg.entities.length];
 }
 
 // ── State ─────────────────────────────────────────────────────────────────
 let state = {
   target:   null,
-  guesses:  [],   // [{ entity, comparison }]
-  revealed: { tradition:false, category:false, domain:false, allegiance:false, form:false },
+  guesses:  [],
+  revealed: {},
   gameOver: false,
   won:      false,
   dayNum:   1,
 };
 
+function makeInitialRevealed() {
+  return Object.fromEntries(cfg.fields.map(f => [f, false]));
+}
+
 function compare(guessEntity, target) {
   const c = {};
-  for (const f of FIELDS) c[f] = guessEntity[f] === target[f];
+  for (const f of cfg.fields) c[f] = guessEntity[f] === target[f];
   c.correct = guessEntity.name.toLowerCase() === target.name.toLowerCase();
   return c;
 }
 
 function updateRevealed(comparison) {
-  for (const f of FIELDS) {
+  for (const f of cfg.fields) {
     if (comparison[f]) state.revealed[f] = true;
   }
 }
 
 // ── LocalStorage persistence ──────────────────────────────────────────────
-const LS_KEY = 'tiamat-v1';
-
 function saveState() {
   const s = {
-    dayNum:  state.dayNum,
-    guesses: state.guesses.map(g => g.entity.name),
+    dayNum:   state.dayNum,
+    guesses:  state.guesses.map(g => g.entity.name),
     gameOver: state.gameOver,
     won:      state.won,
   };
-  try { localStorage.setItem(LS_KEY, JSON.stringify(s)); } catch(_){ }
+  try { localStorage.setItem(cfg.storageKey, JSON.stringify(s)); } catch(_){ }
 }
 
 function loadSavedState() {
   try {
-    const raw = JSON.parse(localStorage.getItem(LS_KEY));
+    const raw = JSON.parse(localStorage.getItem(cfg.storageKey));
     if (!raw || raw.dayNum !== state.dayNum) return;
     for (const name of raw.guesses) {
-      const entity = ENTITIES.find(e => e.name === name);
+      const entity = cfg.entities.find(e => e.name === name);
       if (!entity) continue;
       const comparison = compare(entity, state.target);
       state.guesses.push({ entity, comparison });
@@ -184,10 +297,10 @@ function loadSavedState() {
 // ── Core guess logic ──────────────────────────────────────────────────────
 function makeGuess(name) {
   if (state.gameOver) return;
-  const entity = ENTITIES.find(e => e.name.toLowerCase() === name.toLowerCase());
-  if (!entity) { showToast('Unknown entity — choose from the list.'); return; }
+  const entity = cfg.entities.find(e => e.name.toLowerCase() === name.toLowerCase());
+  if (!entity) { showToast(cfg.toastUnknown); return; }
   const alreadyGuessed = state.guesses.some(g => g.entity.name === entity.name);
-  if (alreadyGuessed) { showToast('Already summoned — try another.'); return; }
+  if (alreadyGuessed) { showToast(cfg.toastRepeat); return; }
 
   const comparison = compare(entity, state.target);
   state.guesses.push({ entity, comparison });
@@ -239,16 +352,16 @@ function renderGuessBadge() {
 function renderRevelation() {
   const path = document.getElementById('rev-path');
   path.innerHTML = '';
-  const allRevealed = FIELDS.every(f => state.revealed[f]);
+  const allRevealed = cfg.fields.every(f => state.revealed[f]);
 
-  FIELDS.forEach((f, i) => {
+  cfg.fields.forEach((f, i) => {
     const isRevealed = state.revealed[f];
     const node = document.createElement('div');
     node.className = 'rev-node' + (isRevealed ? ' revealed' : '') + (allRevealed && state.won ? ' all-gold' : '');
 
     const keyEl = document.createElement('div');
     keyEl.className = 'rev-node-key';
-    keyEl.textContent = FIELD_LABELS[f];
+    keyEl.textContent = cfg.fieldLabels[f];
 
     const valEl = document.createElement('div');
     valEl.className = 'rev-node-value';
@@ -258,9 +371,9 @@ function renderRevelation() {
     node.appendChild(valEl);
     path.appendChild(node);
 
-    if (i < FIELDS.length - 1) {
+    if (i < cfg.fields.length - 1) {
       const conn = document.createElement('div');
-      conn.className = 'rev-connector' + (isRevealed && state.revealed[FIELDS[i+1]] ? ' lit' : '');
+      conn.className = 'rev-connector' + (isRevealed && state.revealed[cfg.fields[i+1]] ? ' lit' : '');
       path.appendChild(conn);
     }
   });
@@ -270,19 +383,16 @@ function renderBoard() {
   const board = document.getElementById('board');
   board.innerHTML = '';
 
-  // Filled guess rows
   state.guesses.forEach(({ entity, comparison }) => {
     const row = document.createElement('div');
     row.className = 'guess-row entering';
 
-    // Name cell
     const nameCell = document.createElement('div');
     nameCell.className = 'g-cell g-name' + (comparison.correct ? ' won-name' : '');
     nameCell.textContent = entity.name;
     row.appendChild(nameCell);
 
-    // Attribute cells
-    FIELDS.forEach(f => {
+    cfg.fields.forEach(f => {
       const cell = document.createElement('div');
       cell.className = 'g-cell g-attr' + (comparison[f] ? ' match' : '');
       cell.textContent = entity[f];
@@ -292,12 +402,11 @@ function renderBoard() {
     board.appendChild(row);
   });
 
-  // Empty placeholder rows
   const remaining = MAX_GUESSES - state.guesses.length;
   for (let i = 0; i < remaining; i++) {
     const row = document.createElement('div');
     row.className = 'guess-row placeholder';
-    const cells = 1 + FIELDS.length;
+    const cells = 1 + cfg.fields.length;
     for (let j = 0; j < cells; j++) {
       const cell = document.createElement('div');
       cell.className = j === 0 ? 'g-cell g-name' : 'g-cell g-attr';
@@ -318,13 +427,21 @@ function renderInputState() {
   }
 }
 
+function renderColHeaders() {
+  const ids = ['col-h-1','col-h-2','col-h-3','col-h-4','col-h-5'];
+  cfg.fields.forEach((f, i) => {
+    const el = document.getElementById(ids[i]);
+    if (el) el.textContent = cfg.fieldLabels[f];
+  });
+}
+
 // ── Autocomplete ──────────────────────────────────────────────────────────
 let activeIdx = -1;
 
 function getFilteredEntities(query) {
   if (!query.trim()) return [];
   const q = query.toLowerCase();
-  return ENTITIES
+  return cfg.entities
     .filter(e => e.name.toLowerCase().includes(q))
     .sort((a, b) => {
       const ai = a.name.toLowerCase().indexOf(q);
@@ -345,7 +462,7 @@ function renderAutocomplete(query) {
     const alreadyGuessed = guessedNames.has(e.name);
     return `<div class="ac-item${alreadyGuessed ? ' guessed-already' : ''}" data-name="${e.name}" data-idx="${i}">
       <span class="ac-name">${highlightMatch(e.name, query)}</span>
-      <span class="ac-meta">${e.tradition} · ${e.category}</span>
+      <span class="ac-meta">${cfg.acMeta(e)}</span>
     </div>`;
   }).join('');
 
@@ -451,27 +568,22 @@ function openEndModal() {
   const t = state.target;
 
   document.getElementById('modal-verdict').textContent =
-    state.won ? `✦ identified on guess ${state.guesses.length}` : 'the entity was';
+    state.won ? cfg.verdictWon(state.guesses.length) : cfg.verdictLost;
   document.getElementById('modal-verdict').className =
     'modal-verdict ' + (state.won ? 'won' : 'lost');
   document.getElementById('modal-name').textContent = t.name.toLowerCase();
   document.getElementById('modal-meta').textContent =
-    `${t.tradition}  ·  ${t.category}  ·  ${t.domain}  ·  ${t.allegiance}  ·  ${t.form}`;
+    cfg.fields.map(f => t[f]).join('  ·  ');
   document.getElementById('modal-hint').textContent = t.hint;
   document.getElementById('modal-score').textContent =
-    `tiamat · ${state.won ? state.guesses.length : 'X'}/${MAX_GUESSES}`;
+    `${cfg.shareTitle} · ${state.won ? state.guesses.length : 'X'}/${MAX_GUESSES}`;
 
-  // Share grid
-  const grid = state.guesses.map(({ comparison }) => {
-    return FIELDS.map(f => comparison[f] ? '🟩' : '🟥').join('');
-  }).join('\n');
   document.getElementById('modal-share-grid').innerHTML =
     state.guesses.map(({ entity, comparison }) =>
       `<span style="color:var(--ocean);opacity:0.7">${entity.name.padEnd(24,' ')}</span> ` +
-      FIELDS.map(f => comparison[f] ? '<span style="color:var(--foam)">■</span>' : '<span style="color:rgba(190,70,70,0.5)">■</span>').join(' ')
+      cfg.fields.map(f => comparison[f] ? '<span style="color:var(--foam)">■</span>' : '<span style="color:rgba(190,70,70,0.5)">■</span>').join(' ')
     ).join('\n');
 
-  // Countdown to next puzzle
   function updateCountdown() {
     const now = Date.now();
     const periodMs = 6 * 3600 * 1000;
@@ -481,7 +593,7 @@ function openEndModal() {
     const m = Math.floor((diff%3600000)/60000);
     const s = Math.floor((diff%60000)/1000);
     document.getElementById('modal-countdown').textContent =
-      `next entity surfaces in ${h}h ${m}m ${s}s`;
+      `${cfg.countdown} ${h}h ${m}m ${s}s`;
   }
   updateCountdown();
   setInterval(updateCountdown, 1000);
@@ -496,9 +608,9 @@ function closeEndModal() {
 // ── Share ─────────────────────────────────────────────────────────────────
 function copyShare() {
   const grid = state.guesses.map(({ comparison }) =>
-    FIELDS.map(f => comparison[f] ? '🟩' : '🟥').join('')
+    cfg.fields.map(f => comparison[f] ? '🟩' : '🟥').join('')
   ).join('\n');
-  const text = `tiamat\n${state.won ? state.guesses.length : 'X'}/${MAX_GUESSES}\n\n${grid}\n\nplay at: homageforenki.dpdns.org`;
+  const text = `${cfg.shareTitle}\n${state.won ? state.guesses.length : 'X'}/${MAX_GUESSES}\n\n${grid}\n\nplay at: homageforenki.dpdns.org`;
   navigator.clipboard.writeText(text).then(() => {
     showToast('Results copied to clipboard.');
   }).catch(() => {
@@ -507,19 +619,100 @@ function copyShare() {
 }
 
 // ── Legend Modal ──────────────────────────────────────────────────────────
-function openLegend()  { document.getElementById('legend-modal').classList.add('open'); }
+function renderLegendLevels() {
+  const el = document.getElementById('legend-levels');
+  if (el) el.innerHTML = cfg.legendLevels;
+}
+
+function openLegend()  {
+  renderLegendLevels();
+  document.getElementById('legend-modal').classList.add('open');
+}
 function closeLegend() { document.getElementById('legend-modal').classList.remove('open'); }
 document.getElementById('legend-modal').addEventListener('click', e => {
   if (e.target === document.getElementById('legend-modal')) closeLegend();
 });
 
+// ── View Toggle ───────────────────────────────────────────────────────────
+function toggleView() {
+  const veil = document.getElementById('theme-veil');
+  veil.classList.add('visible');
+
+  setTimeout(() => {
+    currentMode = currentMode === 'tiamat' ? 'country' : 'tiamat';
+    cfg = getModeConfig(currentMode);
+
+    // Update body theme class
+    if (currentMode === 'country') {
+      document.body.classList.add('country-mode');
+    } else {
+      document.body.classList.remove('country-mode');
+    }
+
+    // Update toggle button label
+    const btn = document.getElementById('view-toggle-btn');
+    if (btn) {
+      btn.textContent = currentMode === 'tiamat' ? '⛰ landscape art' : '🌊 mythology';
+    }
+
+    // Update page title
+    document.title = currentMode === 'tiamat' ? 'tiamat · mythology' : 'country · land art';
+
+    // Re-initialize game for new mode
+    initMode();
+
+    setTimeout(() => {
+      veil.classList.remove('visible');
+    }, 50);
+  }, 450);
+}
+
 // ── Init ──────────────────────────────────────────────────────────────────
+function initMode() {
+  if (!cfg.entities.length) {
+    document.getElementById('day-info').textContent = 'error: no data found.';
+    return;
+  }
+
+  // Reset state
+  state = {
+    target:   null,
+    guesses:  [],
+    revealed: makeInitialRevealed(),
+    gameOver: false,
+    won:      false,
+    dayNum:   getDayNumber(),
+  };
+
+  state.target = getDailyEntity();
+
+  // Close any open modals
+  document.getElementById('end-modal').classList.remove('open');
+  closeLegend();
+  clearSearch();
+
+  // Update UI text
+  document.getElementById('game-title').textContent = cfg.title;
+  document.getElementById('game-subtitle').textContent = cfg.subtitle;
+  document.getElementById('search-input').placeholder = cfg.placeholder;
+  renderColHeaders();
+
+  loadSavedState();
+  render();
+
+  if (state.gameOver) {
+    setTimeout(() => openEndModal(), 400);
+  }
+}
+
 function init() {
-  if (typeof ENTITIES === 'undefined' || !ENTITIES.length) {
+  cfg = getModeConfig(currentMode);
+  if (!cfg.entities.length) {
     document.getElementById('day-info').textContent = 'error: no entity data found.';
     return;
   }
   state.dayNum = getDayNumber();
+  state.revealed = makeInitialRevealed();
   state.target = getDailyEntity();
   loadSavedState();
   render();
