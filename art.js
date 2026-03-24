@@ -1,23 +1,27 @@
 // ─────────────────────────────────────────────────────────────────────────────
 //  COUNTRY — land art & earthworks dataset
-//  Fields: name · decade · style · nation · material · setting · hint
-//  Decade values:  Ancient | 1930s | 1940s | 1960s | 1970s | 1980s | 1990s | 2000s | 2010s
+//  Fields: name · period · style · nation · material · setting · hint
+//  Period values:  BC | 0-1000 | 1000-1500 | 1500-1800 | 1800-1930 | 1930-1970 | 1980-2000 | 2000-2026
 //  Style values:   Earthwork | Environmental Art | Site-Specific Installation |
-//                  Monumental Sculpture | Conceptual Land Art | Ecological Art
+//                  Monumental Sculpture | Conceptual Land Art | Ecological Art |
+//                  Renaissance | Baroque | Impressionism | Post-Impressionism |
+//                  Modernism | Surrealism | Abstract Expressionism
 //  Nation values:  USA | UK | Germany | Netherlands | Japan | France | Australia |
 //                  Italy | Peru | Chile | Finland | Ireland | Morocco | Mexico |
-//                  China | Multiple
+//                  China | Multiple | Spain | Norway | Greece
 //  Material values: Earth / Rock | Steel / Metal | Stone / Concrete |
-//                   Natural Elements | Mixed Media | Soil / Mound | Water / Ice
+//                   Natural Elements | Mixed Media | Soil / Mound | Water / Ice |
+//                   Oil on Canvas | Watercolor | Marble | Bronze | Fresco
 //  Setting values: Desert | Rural / Plains | Salt Flats | Coastal / Marine |
-//                  Mountain / Highland | Urban | Forest / Woodland | Multiple Sites
+//                  Mountain / Highland | Urban | Forest / Woodland | Multiple Sites |
+//                  Museum / Gallery | Outdoor / Public | Ruins / Historic Site
 // ─────────────────────────────────────────────────────────────────────────────
 window.COUNTRY = Object.freeze([
 
   // ── CORE AMERICAN EARTHWORKS ────────────────────────────────────────────────
   {
     name: "Spiral Jetty",
-    decade: "1970s",
+    period: "1930-1970",
     style: "Earthwork",
     nation: "USA",
     material: "Earth / Rock",
@@ -26,7 +30,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Double Negative",
-    decade: "1960s",
+    period: "1930-1970",
     style: "Earthwork",
     nation: "USA",
     material: "Earth / Rock",
@@ -35,7 +39,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "City",
-    decade: "1970s",
+    period: "1930-1970",
     style: "Earthwork",
     nation: "USA",
     material: "Earth / Rock",
@@ -44,7 +48,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Lightning Field",
-    decade: "1970s",
+    period: "1930-1970",
     style: "Site-Specific Installation",
     nation: "USA",
     material: "Steel / Metal",
@@ -53,7 +57,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Sun Tunnels",
-    decade: "1970s",
+    period: "1930-1970",
     style: "Site-Specific Installation",
     nation: "USA",
     material: "Stone / Concrete",
@@ -62,7 +66,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Roden Crater",
-    decade: "1970s",
+    period: "1930-1970",
     style: "Environmental Art",
     nation: "USA",
     material: "Earth / Rock",
@@ -71,7 +75,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Complex One",
-    decade: "1970s",
+    period: "1930-1970",
     style: "Earthwork",
     nation: "USA",
     material: "Earth / Rock",
@@ -80,7 +84,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Amarillo Ramp",
-    decade: "1970s",
+    period: "1930-1970",
     style: "Earthwork",
     nation: "USA",
     material: "Earth / Rock",
@@ -89,7 +93,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Partially Buried Woodshed",
-    decade: "1970s",
+    period: "1930-1970",
     style: "Conceptual Land Art",
     nation: "USA",
     material: "Natural Elements",
@@ -98,7 +102,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Effigy Tumuli",
-    decade: "1980s",
+    period: "1980-2000",
     style: "Earthwork",
     nation: "USA",
     material: "Earth / Rock",
@@ -107,7 +111,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Star Axis",
-    decade: "1970s",
+    period: "1930-1970",
     style: "Site-Specific Installation",
     nation: "USA",
     material: "Stone / Concrete",
@@ -116,7 +120,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Cadillac Ranch",
-    decade: "1970s",
+    period: "1930-1970",
     style: "Monumental Sculpture",
     nation: "USA",
     material: "Steel / Metal",
@@ -125,7 +129,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Carhenge",
-    decade: "1980s",
+    period: "1980-2000",
     style: "Monumental Sculpture",
     nation: "USA",
     material: "Steel / Metal",
@@ -134,7 +138,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Las Vegas Piece",
-    decade: "1960s",
+    period: "1930-1970",
     style: "Conceptual Land Art",
     nation: "USA",
     material: "Earth / Rock",
@@ -143,7 +147,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Mile Long Drawing",
-    decade: "1960s",
+    period: "1930-1970",
     style: "Conceptual Land Art",
     nation: "USA",
     material: "Earth / Rock",
@@ -152,7 +156,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "NYC Earth Room",
-    decade: "1970s",
+    period: "1930-1970",
     style: "Conceptual Land Art",
     nation: "USA",
     material: "Earth / Rock",
@@ -161,7 +165,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Broken Kilometer",
-    decade: "1970s",
+    period: "1930-1970",
     style: "Conceptual Land Art",
     nation: "USA",
     material: "Steel / Metal",
@@ -170,7 +174,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Rift",
-    decade: "1960s",
+    period: "1930-1970",
     style: "Earthwork",
     nation: "USA",
     material: "Earth / Rock",
@@ -179,7 +183,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Displaced/Replaced Mass",
-    decade: "1960s",
+    period: "1930-1970",
     style: "Earthwork",
     nation: "USA",
     material: "Earth / Rock",
@@ -188,7 +192,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Mirror Displacements",
-    decade: "1960s",
+    period: "1930-1970",
     style: "Conceptual Land Art",
     nation: "USA",
     material: "Mixed Media",
@@ -197,7 +201,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Time Landscape",
-    decade: "1970s",
+    period: "1930-1970",
     style: "Ecological Art",
     nation: "USA",
     material: "Natural Elements",
@@ -206,7 +210,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Annual Rings",
-    decade: "1960s",
+    period: "1930-1970",
     style: "Conceptual Land Art",
     nation: "Multiple",
     material: "Earth / Rock",
@@ -215,7 +219,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Whirlpool",
-    decade: "1970s",
+    period: "1930-1970",
     style: "Conceptual Land Art",
     nation: "USA",
     material: "Earth / Rock",
@@ -224,7 +228,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Amphisculpture",
-    decade: "1970s",
+    period: "1930-1970",
     style: "Earthwork",
     nation: "USA",
     material: "Earth / Rock",
@@ -235,7 +239,7 @@ window.COUNTRY = Object.freeze([
   // ── CHRISTO & JEANNE-CLAUDE ──────────────────────────────────────────────────
   {
     name: "Running Fence",
-    decade: "1970s",
+    period: "1930-1970",
     style: "Environmental Art",
     nation: "USA",
     material: "Mixed Media",
@@ -244,7 +248,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Valley Curtain",
-    decade: "1970s",
+    period: "1930-1970",
     style: "Environmental Art",
     nation: "USA",
     material: "Mixed Media",
@@ -253,7 +257,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Surrounded Islands",
-    decade: "1980s",
+    period: "1980-2000",
     style: "Environmental Art",
     nation: "USA",
     material: "Mixed Media",
@@ -262,7 +266,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "The Gates",
-    decade: "2000s",
+    period: "2000-2026",
     style: "Site-Specific Installation",
     nation: "USA",
     material: "Mixed Media",
@@ -271,7 +275,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Wrapped Coast",
-    decade: "1960s",
+    period: "1930-1970",
     style: "Environmental Art",
     nation: "Australia",
     material: "Mixed Media",
@@ -280,7 +284,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Wrapped Reichstag",
-    decade: "1990s",
+    period: "1980-2000",
     style: "Environmental Art",
     nation: "Germany",
     material: "Mixed Media",
@@ -289,7 +293,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "The Umbrellas",
-    decade: "1990s",
+    period: "1980-2000",
     style: "Environmental Art",
     nation: "Multiple",
     material: "Mixed Media",
@@ -298,7 +302,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Floating Piers",
-    decade: "2010s",
+    period: "2000-2026",
     style: "Environmental Art",
     nation: "Italy",
     material: "Mixed Media",
@@ -309,7 +313,7 @@ window.COUNTRY = Object.freeze([
   // ── WALTER DE MARIA ──────────────────────────────────────────────────────────
   {
     name: "Vertical Earth Kilometer",
-    decade: "1970s",
+    period: "1930-1970",
     style: "Conceptual Land Art",
     nation: "Germany",
     material: "Steel / Metal",
@@ -320,7 +324,7 @@ window.COUNTRY = Object.freeze([
   // ── MAYA LIN ─────────────────────────────────────────────────────────────────
   {
     name: "Vietnam Veterans Memorial",
-    decade: "1980s",
+    period: "1980-2000",
     style: "Monumental Sculpture",
     nation: "USA",
     material: "Stone / Concrete",
@@ -329,7 +333,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Wave Field",
-    decade: "1990s",
+    period: "1980-2000",
     style: "Environmental Art",
     nation: "USA",
     material: "Earth / Rock",
@@ -338,7 +342,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Storm King Wavefield",
-    decade: "2000s",
+    period: "2000-2026",
     style: "Environmental Art",
     nation: "USA",
     material: "Earth / Rock",
@@ -349,7 +353,7 @@ window.COUNTRY = Object.freeze([
   // ── AGNES DENES ──────────────────────────────────────────────────────────────
   {
     name: "Wheatfield: A Confrontation",
-    decade: "1980s",
+    period: "1980-2000",
     style: "Ecological Art",
     nation: "USA",
     material: "Natural Elements",
@@ -358,7 +362,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Tree Mountain",
-    decade: "1990s",
+    period: "1980-2000",
     style: "Ecological Art",
     nation: "Finland",
     material: "Natural Elements",
@@ -369,7 +373,7 @@ window.COUNTRY = Object.freeze([
   // ── ANDY GOLDSWORTHY ─────────────────────────────────────────────────────────
   {
     name: "Storm King Wall",
-    decade: "1990s",
+    period: "1980-2000",
     style: "Environmental Art",
     nation: "USA",
     material: "Stone / Concrete",
@@ -378,7 +382,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Sheepfolds",
-    decade: "2000s",
+    period: "2000-2026",
     style: "Environmental Art",
     nation: "UK",
     material: "Stone / Concrete",
@@ -387,7 +391,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Striding Arches",
-    decade: "2000s",
+    period: "2000-2026",
     style: "Environmental Art",
     nation: "UK",
     material: "Stone / Concrete",
@@ -396,7 +400,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Garden of Stones",
-    decade: "2000s",
+    period: "2000-2026",
     style: "Environmental Art",
     nation: "USA",
     material: "Stone / Concrete",
@@ -407,7 +411,7 @@ window.COUNTRY = Object.freeze([
   // ── RICHARD LONG ─────────────────────────────────────────────────────────────
   {
     name: "A Line Made By Walking",
-    decade: "1960s",
+    period: "1930-1970",
     style: "Conceptual Land Art",
     nation: "UK",
     material: "Natural Elements",
@@ -416,7 +420,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "A Line in Scotland",
-    decade: "1980s",
+    period: "1980-2000",
     style: "Conceptual Land Art",
     nation: "UK",
     material: "Natural Elements",
@@ -425,7 +429,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Sahara Line",
-    decade: "1980s",
+    period: "1980-2000",
     style: "Conceptual Land Art",
     nation: "Morocco",
     material: "Natural Elements",
@@ -436,7 +440,7 @@ window.COUNTRY = Object.freeze([
   // ── RICHARD SERRA ────────────────────────────────────────────────────────────
   {
     name: "Tilted Arc",
-    decade: "1980s",
+    period: "1980-2000",
     style: "Monumental Sculpture",
     nation: "USA",
     material: "Steel / Metal",
@@ -447,7 +451,7 @@ window.COUNTRY = Object.freeze([
   // ── ROBERT MORRIS ────────────────────────────────────────────────────────────
   {
     name: "Observatory",
-    decade: "1970s",
+    period: "1930-1970",
     style: "Earthwork",
     nation: "Netherlands",
     material: "Earth / Rock",
@@ -458,7 +462,7 @@ window.COUNTRY = Object.freeze([
   // ── OTHER SMITHSON WORKS ─────────────────────────────────────────────────────
   {
     name: "Broken Circle / Spiral Hill",
-    decade: "1970s",
+    period: "1930-1970",
     style: "Earthwork",
     nation: "Netherlands",
     material: "Earth / Rock",
@@ -467,7 +471,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Asphalt Rundown",
-    decade: "1960s",
+    period: "1930-1970",
     style: "Conceptual Land Art",
     nation: "Italy",
     material: "Earth / Rock",
@@ -478,7 +482,7 @@ window.COUNTRY = Object.freeze([
   // ── JOSEPH BEUYS ─────────────────────────────────────────────────────────────
   {
     name: "7000 Oaks",
-    decade: "1980s",
+    period: "1980-2000",
     style: "Ecological Art",
     nation: "Germany",
     material: "Natural Elements",
@@ -489,7 +493,7 @@ window.COUNTRY = Object.freeze([
   // ── PATRICIA JOHANSON ────────────────────────────────────────────────────────
   {
     name: "Fair Park Lagoon",
-    decade: "1980s",
+    period: "1980-2000",
     style: "Ecological Art",
     nation: "USA",
     material: "Natural Elements",
@@ -500,7 +504,7 @@ window.COUNTRY = Object.freeze([
   // ── OLAFUR ELIASSON ──────────────────────────────────────────────────────────
   {
     name: "New York City Waterfalls",
-    decade: "2000s",
+    period: "2000-2026",
     style: "Environmental Art",
     nation: "USA",
     material: "Water / Ice",
@@ -511,7 +515,7 @@ window.COUNTRY = Object.freeze([
   // ── JAMES TURRELL SKYSPACES ──────────────────────────────────────────────────
   {
     name: "Kielder Skyspace",
-    decade: "2000s",
+    period: "2000-2026",
     style: "Site-Specific Installation",
     nation: "UK",
     material: "Stone / Concrete",
@@ -520,7 +524,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Deer Shelter Skyspace",
-    decade: "2000s",
+    period: "2000-2026",
     style: "Site-Specific Installation",
     nation: "UK",
     material: "Stone / Concrete",
@@ -531,7 +535,7 @@ window.COUNTRY = Object.freeze([
   // ── NOGUCHI ──────────────────────────────────────────────────────────────────
   {
     name: "Moerenuma Park",
-    decade: "1980s",
+    period: "1980-2000",
     style: "Environmental Art",
     nation: "Japan",
     material: "Earth / Rock",
@@ -540,7 +544,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "California Scenario",
-    decade: "1980s",
+    period: "1980-2000",
     style: "Site-Specific Installation",
     nation: "USA",
     material: "Stone / Concrete",
@@ -551,7 +555,7 @@ window.COUNTRY = Object.freeze([
   // ── UGO RONDINONE ────────────────────────────────────────────────────────────
   {
     name: "Seven Magic Mountains",
-    decade: "2010s",
+    period: "2000-2026",
     style: "Site-Specific Installation",
     nation: "USA",
     material: "Stone / Concrete",
@@ -562,7 +566,7 @@ window.COUNTRY = Object.freeze([
   // ── MICHAEL HEIZER ADDITIONAL ───────────────────────────────────────────────
   {
     name: "Levitated Mass",
-    decade: "2010s",
+    period: "2000-2026",
     style: "Monumental Sculpture",
     nation: "USA",
     material: "Stone / Concrete",
@@ -573,7 +577,7 @@ window.COUNTRY = Object.freeze([
   // ── BARNETT NEWMAN ───────────────────────────────────────────────────────────
   {
     name: "Broken Obelisk",
-    decade: "1960s",
+    period: "1930-1970",
     style: "Monumental Sculpture",
     nation: "USA",
     material: "Steel / Metal",
@@ -584,7 +588,7 @@ window.COUNTRY = Object.freeze([
   // ── WALTER DE MARIA / TIME ───────────────────────────────────────────────────
   {
     name: "Time / Timeless / No Time",
-    decade: "2000s",
+    period: "2000-2026",
     style: "Site-Specific Installation",
     nation: "USA",
     material: "Stone / Concrete",
@@ -595,7 +599,7 @@ window.COUNTRY = Object.freeze([
   // ── NAOSHIMA ─────────────────────────────────────────────────────────────────
   {
     name: "Naoshima Island",
-    decade: "1990s",
+    period: "1980-2000",
     style: "Site-Specific Installation",
     nation: "Japan",
     material: "Mixed Media",
@@ -606,7 +610,7 @@ window.COUNTRY = Object.freeze([
   // ── TONKIN LIU ───────────────────────────────────────────────────────────────
   {
     name: "Singing Ringing Tree",
-    decade: "2000s",
+    period: "2000-2026",
     style: "Environmental Art",
     nation: "UK",
     material: "Steel / Metal",
@@ -617,7 +621,7 @@ window.COUNTRY = Object.freeze([
   // ── MOUNT RUSHMORE / CRAZY HORSE ────────────────────────────────────────────
   {
     name: "Mount Rushmore",
-    decade: "1930s",
+    period: "1930-1970",
     style: "Monumental Sculpture",
     nation: "USA",
     material: "Stone / Concrete",
@@ -626,7 +630,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Crazy Horse Memorial",
-    decade: "1940s",
+    period: "1930-1970",
     style: "Monumental Sculpture",
     nation: "USA",
     material: "Stone / Concrete",
@@ -637,7 +641,7 @@ window.COUNTRY = Object.freeze([
   // ── ANCIENT AMERICAN EARTHWORKS ─────────────────────────────────────────────
   {
     name: "Serpent Mound",
-    decade: "Ancient",
+    period: "0-1000",
     style: "Earthwork",
     nation: "USA",
     material: "Soil / Mound",
@@ -646,7 +650,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Monks Mound",
-    decade: "Ancient",
+    period: "0-1000",
     style: "Earthwork",
     nation: "USA",
     material: "Soil / Mound",
@@ -655,7 +659,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Poverty Point",
-    decade: "Ancient",
+    period: "BC",
     style: "Earthwork",
     nation: "USA",
     material: "Soil / Mound",
@@ -664,7 +668,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Effigy Mounds",
-    decade: "Ancient",
+    period: "0-1000",
     style: "Earthwork",
     nation: "USA",
     material: "Soil / Mound",
@@ -675,7 +679,7 @@ window.COUNTRY = Object.freeze([
   // ── ANCIENT WORLD ────────────────────────────────────────────────────────────
   {
     name: "Nazca Lines",
-    decade: "Ancient",
+    period: "BC",
     style: "Earthwork",
     nation: "Peru",
     material: "Earth / Rock",
@@ -684,7 +688,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Stonehenge",
-    decade: "Ancient",
+    period: "BC",
     style: "Monumental Sculpture",
     nation: "UK",
     material: "Stone / Concrete",
@@ -693,7 +697,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Avebury",
-    decade: "Ancient",
+    period: "BC",
     style: "Earthwork",
     nation: "UK",
     material: "Stone / Concrete",
@@ -702,7 +706,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Silbury Hill",
-    decade: "Ancient",
+    period: "BC",
     style: "Earthwork",
     nation: "UK",
     material: "Soil / Mound",
@@ -711,7 +715,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Carnac Stones",
-    decade: "Ancient",
+    period: "BC",
     style: "Monumental Sculpture",
     nation: "France",
     material: "Stone / Concrete",
@@ -720,7 +724,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Ring of Brodgar",
-    decade: "Ancient",
+    period: "BC",
     style: "Monumental Sculpture",
     nation: "UK",
     material: "Stone / Concrete",
@@ -729,7 +733,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Newgrange",
-    decade: "Ancient",
+    period: "BC",
     style: "Earthwork",
     nation: "Ireland",
     material: "Stone / Concrete",
@@ -738,7 +742,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Cerne Abbas Giant",
-    decade: "Ancient",
+    period: "0-1000",
     style: "Earthwork",
     nation: "UK",
     material: "Earth / Rock",
@@ -747,7 +751,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Uffington White Horse",
-    decade: "Ancient",
+    period: "BC",
     style: "Earthwork",
     nation: "UK",
     material: "Earth / Rock",
@@ -756,7 +760,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Easter Island Moai",
-    decade: "Ancient",
+    period: "1000-1500",
     style: "Monumental Sculpture",
     nation: "Chile",
     material: "Stone / Concrete",
@@ -765,7 +769,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Olmec Colossal Heads",
-    decade: "Ancient",
+    period: "BC",
     style: "Monumental Sculpture",
     nation: "Mexico",
     material: "Stone / Concrete",
@@ -774,7 +778,7 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Chichen Itza",
-    decade: "Ancient",
+    period: "0-1000",
     style: "Monumental Sculpture",
     nation: "Mexico",
     material: "Stone / Concrete",
@@ -783,12 +787,176 @@ window.COUNTRY = Object.freeze([
   },
   {
     name: "Great Wall of China",
-    decade: "Ancient",
+    period: "1500-1800",
     style: "Earthwork",
     nation: "China",
     material: "Stone / Concrete",
     setting: "Mountain / Highland",
     hint: "Spanning 13,000 miles of mountain ridge, desert, and plain across northern China, the Wall is the longest earthwork in human history—a continuous fortification that also functions as the world's most ambitious landscape intervention."
+  },
+
+  // ── PAINTINGS & SCULPTURES ──────────────────────────────────────────────────
+  {
+    name: "Mona Lisa",
+    period: "1500-1800",
+    style: "Renaissance",
+    nation: "Italy",
+    material: "Oil on Canvas",
+    setting: "Museum / Gallery",
+    hint: "Leonardo da Vinci's small panel portrait of a Florentine woman is distinguished by its sfumato technique, the subject's enigmatic expression, and the atmospheric landscape behind her — the most visited painting on earth."
+  },
+  {
+    name: "The Starry Night",
+    period: "1800-1930",
+    style: "Post-Impressionism",
+    nation: "Netherlands",
+    material: "Oil on Canvas",
+    setting: "Museum / Gallery",
+    hint: "Vincent van Gogh painted this swirling nocturnal sky above a sleepy village from memory during his stay at an asylum in Saint-Rémy-de-Provence, the cypress tree piercing upward like a dark flame."
+  },
+  {
+    name: "Girl with a Pearl Earring",
+    period: "1500-1800",
+    style: "Baroque",
+    nation: "Netherlands",
+    material: "Oil on Canvas",
+    setting: "Museum / Gallery",
+    hint: "Johannes Vermeer's tronie captures an unknown young woman glancing over her shoulder, the oversized teardrop pearl at her ear luminous against a dark ground — nicknamed the 'Mona Lisa of the North.'"
+  },
+  {
+    name: "The Persistence of Memory",
+    period: "1930-1970",
+    style: "Surrealism",
+    nation: "Spain",
+    material: "Oil on Canvas",
+    setting: "Museum / Gallery",
+    hint: "Salvador Dalí painted melting pocket watches draped across a desolate Catalan beach in a dream-like afternoon scene, equating the fluidity of time with the irrational logic of the unconscious mind."
+  },
+  {
+    name: "Guernica",
+    period: "1930-1970",
+    style: "Modernism",
+    nation: "Spain",
+    material: "Oil on Canvas",
+    setting: "Museum / Gallery",
+    hint: "Pablo Picasso's vast monochrome canvas of fractured bodies, shrieking women, and a dying horse was painted in response to the Nazi bombing of a Basque town in 1937, becoming the defining anti-war image of the century."
+  },
+  {
+    name: "The Birth of Venus",
+    period: "1500-1800",
+    style: "Renaissance",
+    nation: "Italy",
+    material: "Oil on Canvas",
+    setting: "Museum / Gallery",
+    hint: "Sandro Botticelli depicted the goddess of love arriving on the shore of Cyprus atop a giant scallop shell, her long auburn hair stirred by the winds — a secular mythological canvas that shocked and enchanted Renaissance Florence."
+  },
+  {
+    name: "David",
+    period: "1500-1800",
+    style: "Renaissance",
+    nation: "Italy",
+    material: "Marble",
+    setting: "Museum / Gallery",
+    hint: "Michelangelo carved this 17-foot figure of the biblical shepherd from a single block of Carrara marble, capturing the moment before his confrontation with Goliath — the supreme statement of Renaissance humanism and physical idealism."
+  },
+  {
+    name: "Venus de Milo",
+    period: "BC",
+    style: "Monumental Sculpture",
+    nation: "Greece",
+    material: "Marble",
+    setting: "Museum / Gallery",
+    hint: "This marble goddess, believed to be Aphrodite, was discovered on the Aegean island of Milos in 1820 and dated to around 100 BC — her missing arms have sparked centuries of speculation and made her the world's most famous fragment."
+  },
+  {
+    name: "The Thinker",
+    period: "1800-1930",
+    style: "Modernism",
+    nation: "France",
+    material: "Bronze",
+    setting: "Outdoor / Public",
+    hint: "Auguste Rodin's seated nude figure, chin resting on his fist in deep contemplation, was originally conceived as Dante above the Gates of Hell before becoming a freestanding universal symbol of philosophy and creative struggle."
+  },
+  {
+    name: "The Scream",
+    period: "1800-1930",
+    style: "Modernism",
+    nation: "Norway",
+    material: "Oil on Canvas",
+    setting: "Museum / Gallery",
+    hint: "Edvard Munch described a walk at sunset when the sky turned blood-red and he sensed an infinite scream passing through nature — his anguished figure on a fjord bridge, hands pressed to hollow cheeks, became the icon of existential dread."
+  },
+  {
+    name: "Water Lilies",
+    period: "1800-1930",
+    style: "Impressionism",
+    nation: "France",
+    material: "Oil on Canvas",
+    setting: "Museum / Gallery",
+    hint: "Claude Monet devoted the last decades of his life to painting the pond in his Giverny garden, producing over 250 canvases of floating lilies and reflected sky — the immersive wraparound panels at the Orangerie anticipate abstract painting."
+  },
+  {
+    name: "Las Meninas",
+    period: "1500-1800",
+    style: "Baroque",
+    nation: "Spain",
+    material: "Oil on Canvas",
+    setting: "Museum / Gallery",
+    hint: "Diego Velázquez placed himself within this royal court scene, painting the infanta and her ladies-in-waiting while the king and queen are reflected in a mirror — a hall-of-mirrors meditation on looking, representation, and artistic power."
+  },
+  {
+    name: "The Night Watch",
+    period: "1500-1800",
+    style: "Baroque",
+    nation: "Netherlands",
+    material: "Oil on Canvas",
+    setting: "Museum / Gallery",
+    hint: "Rembrandt's enormous militia portrait broke with convention by showing Amsterdam's civic guards in dynamic motion emerging from shadow, the brilliant golden figure of the captain's lieutenant catching the light in the midst of controlled chaos."
+  },
+  {
+    name: "Sistine Chapel Ceiling",
+    period: "1500-1800",
+    style: "Renaissance",
+    nation: "Italy",
+    material: "Fresco",
+    setting: "Ruins / Historic Site",
+    hint: "Michelangelo spent four years on his back painting biblical scenes across the Vatican chapel's 5,000 square feet of curved ceiling, culminating in the famous near-touch between God and Adam at the moment of creation."
+  },
+  {
+    name: "A Sunday on La Grande Jatte",
+    period: "1800-1930",
+    style: "Post-Impressionism",
+    nation: "France",
+    material: "Oil on Canvas",
+    setting: "Museum / Gallery",
+    hint: "Georges Seurat spent two years applying millions of tiny dots of pure color in strict pointillist method to this enormous scene of Parisians at leisure on an island in the Seine, revolutionizing how optical mixing could replace brushwork."
+  },
+  {
+    name: "Campbell's Soup Cans",
+    period: "1930-1970",
+    style: "Modernism",
+    nation: "USA",
+    material: "Oil on Canvas",
+    setting: "Museum / Gallery",
+    hint: "Andy Warhol exhibited thirty-two identical canvases of Campbell's condensed soup cans in a Los Angeles gallery in 1962, presenting commercial packaging as high art and launching Pop Art as a movement that collapsed the boundary between culture and commodity."
+  },
+  {
+    name: "No. 31",
+    period: "1930-1970",
+    style: "Abstract Expressionism",
+    nation: "USA",
+    material: "Oil on Canvas",
+    setting: "Museum / Gallery",
+    hint: "Jackson Pollock laid this vast canvas on the floor and poured, dripped, and flung house paint across it in the technique he called action painting — the resulting web of looping lines records the artist's physical movement as pure gestural energy."
+  },
+  {
+    name: "Winged Victory of Samothrace",
+    period: "BC",
+    style: "Monumental Sculpture",
+    nation: "Greece",
+    material: "Marble",
+    setting: "Museum / Gallery",
+    hint: "This Hellenistic marble figure of Nike alighting on a ship's prow, discovered on a Greek island in 1863, conveys such a sense of rushing wind and forward momentum that it has never been surpassed as a sculptural evocation of triumph."
   },
 
 ]);
