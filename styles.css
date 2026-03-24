@@ -556,11 +556,17 @@ h1 {
   text-transform: uppercase;
 }
 
-/* ── HOW TO PLAY / LEGEND ────────────────────────────────────────────────── */
-#legend-btn {
+/* ── TOP BUTTONS (fixed top-right cluster) ───────────────────────────────── */
+#top-btns {
   position: fixed;
   top: 1rem; right: 1rem;
   z-index: 50;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+#legend-btn, #view-toggle-btn {
   background: var(--glass);
   border: 1px solid var(--border);
   color: var(--current);
@@ -570,10 +576,11 @@ h1 {
   padding: 0.35rem 0.7rem;
   cursor: pointer;
   backdrop-filter: blur(10px);
-  transition: all 0.2s;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
   text-transform: uppercase;
+  white-space: nowrap;
 }
-#legend-btn:hover { border-color: var(--current); color: var(--foam); }
+#legend-btn:hover, #view-toggle-btn:hover { border-color: var(--current); color: var(--foam); }
 
 #legend-modal {
   display: none;
@@ -656,6 +663,55 @@ h1 {
 }
 @keyframes ripple { to { transform: scale(40); opacity: 0; } }
 @keyframes pulse  { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+/* ── COUNTRY MODE — dusty yellow-brown desert palette ────────────────────── */
+body.country-mode {
+  --void:      #0a0703;
+  --abyss:     #100c05;
+  --deep:      #180f06;
+  --midnight:  #221608;
+  --kelp:      #4a2e0a;
+  --ocean:     #7a4c14;
+  --surge:     #a86c20;
+  --current:   #c89030;
+  --foam:      #e0b84c;
+  --caustic:   #eed080;
+  --shimmer:   #f4e8b8;
+  --gold:      #d4a030;
+  --horizon:   #e8c878;
+  --aurora:    #d0b080;
+  --glass:     rgba(16,10,4,0.78);
+  --border:    rgba(200,144,48,0.22);
+  --borderhov: rgba(224,184,76,0.42);
+
+  --match-bg:   rgba(168,108,32,0.22);
+  --match-bdr:  rgba(224,184,76,0.55);
+  --wrong-bg:   rgba(120,25,30,0.2);
+  --wrong-bdr:  rgba(190,70,70,0.3);
+  --empty-bg:   rgba(10,7,3,0.42);
+  --empty-bdr:  rgba(200,144,48,0.07);
+
+  background: var(--void);
+}
+
+body.country-mode h1 {
+  text-shadow: 0 0 60px rgba(224,184,76,0.22), 0 0 120px rgba(200,144,48,0.1);
+}
+
+/* ── THEME VEIL — smooth crossfade between modes ─────────────────────────── */
+#theme-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+#theme-veil.visible {
+  opacity: 1;
+  pointer-events: all;
+}
 
 /* ── GUESSES REMAINING BADGE ─────────────────────────────────────────────── */
 #guesses-badge {
