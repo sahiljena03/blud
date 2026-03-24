@@ -115,18 +115,15 @@ const MAX_GUESSES = 6;
 const FIELDS      = ['tradition','category','domain','allegiance','form'];
 const FIELD_LABELS = { tradition:'Tradition', category:'Category', domain:'Domain', allegiance:'Allegiance', form:'Form' };
 
-const START_DATE  = new Date('2025-01-01T00:00:00');
-
-// ── Seeded daily entity ───────────────────────────────────────────────────
+// ── Seeded 6-hour-period entity ──────────────────────────────────────────
 function getDayNumber() {
-  const now = new Date();
-  const d   = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  return Math.max(1, Math.floor((d - START_DATE) / 86400000) + 1);
+  // Returns a stable period number that increments every 6 hours
+  return Math.floor(Date.now() / (6 * 3600 * 1000));
 }
 
 function getDailyEntity() {
   const day = getDayNumber();
-  // Simple but stable hash over day number
+  // Simple but stable hash over period number
   let h = day * 2654435761;
   h = (h ^ (h >>> 16)) >>> 0;
   return ENTITIES[h % ENTITIES.length];
@@ -156,7 +153,7 @@ function updateRevealed(comparison) {
 }
 
 // ── LocalStorage persistence ──────────────────────────────────────────────
-const LS_KEY = 'blud-v1';
+const LS_KEY = 'tiamat-v1';
 
 function saveState() {
   const s = {
@@ -224,7 +221,7 @@ function render() {
 
 function renderDayInfo() {
   document.getElementById('day-info').textContent =
-    `day ${state.dayNum}  ·  ${MAX_GUESSES - state.guesses.length} guess${MAX_GUESSES - state.guesses.length !== 1 ? 'es' : ''} remaining`;
+    `${MAX_GUESSES - state.guesses.length} guess${MAX_GUESSES - state.guesses.length !== 1 ? 'es' : ''} remaining`;
 }
 
 function renderGuessBadge() {
@@ -462,7 +459,7 @@ function openEndModal() {
     `${t.tradition}  ·  ${t.category}  ·  ${t.domain}  ·  ${t.allegiance}  ·  ${t.form}`;
   document.getElementById('modal-hint').textContent = t.hint;
   document.getElementById('modal-score').textContent =
-    `blud · day ${state.dayNum} · ${state.won ? state.guesses.length : 'X'}/${MAX_GUESSES}`;
+    `tiamat · ${state.won ? state.guesses.length : 'X'}/${MAX_GUESSES}`;
 
   // Share grid
   const grid = state.guesses.map(({ comparison }) => {
@@ -476,9 +473,10 @@ function openEndModal() {
 
   // Countdown to next puzzle
   function updateCountdown() {
-    const now = new Date();
-    const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-    const diff = tomorrow - now;
+    const now = Date.now();
+    const periodMs = 6 * 3600 * 1000;
+    const next = Math.ceil(now / periodMs) * periodMs;
+    const diff = next - now;
     const h = Math.floor(diff/3600000);
     const m = Math.floor((diff%3600000)/60000);
     const s = Math.floor((diff%60000)/1000);
@@ -500,7 +498,7 @@ function copyShare() {
   const grid = state.guesses.map(({ comparison }) =>
     FIELDS.map(f => comparison[f] ? '🟩' : '🟥').join('')
   ).join('\n');
-  const text = `blud · day ${state.dayNum}\n${state.won ? state.guesses.length : 'X'}/${MAX_GUESSES}\n\n${grid}\n\nplay at: blud.game`;
+  const text = `tiamat\n${state.won ? state.guesses.length : 'X'}/${MAX_GUESSES}\n\n${grid}\n\nplay at: homageforenki.dpdns.org`;
   navigator.clipboard.writeText(text).then(() => {
     showToast('Results copied to clipboard.');
   }).catch(() => {
