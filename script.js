@@ -7,13 +7,13 @@ function getModeConfig(mode) {
   if (mode === 'country') {
     return {
       entities:    (typeof COUNTRY !== 'undefined' ? COUNTRY : []),
-      fields:      ['decade', 'style', 'nation', 'material', 'setting'],
-      fieldLabels: { decade:'Decade', style:'Style', nation:'Nation', material:'Material', setting:'Setting' },
+      fields:      ['period', 'style', 'nation', 'material', 'setting'],
+      fieldLabels: { period:'Period', style:'Style', nation:'Nation', material:'Material', setting:'Setting' },
       title:       'country',
       subtitle:    'identify the land art piece',
       placeholder: 'name a land art piece…',
-      storageKey:  'country-v1',
-      acMeta:      e => `${e.nation} · ${e.style}`,
+      storageKey:  'country-v2',
+      acMeta:      e => `${e.period} · ${e.style}`,
       toastUnknown:'Unknown artwork — choose from the list.',
       toastRepeat: 'Already examined — try another.',
       verdictWon:  n => `✦ identified on guess ${n}`,
@@ -22,24 +22,63 @@ function getModeConfig(mode) {
       shareTitle:  'country',
       legendLevels: `
         <div class="level-item">
-          <div class="level-key">Decade</div>
-          <div class="level-vals">Ancient · 1930s · 1940s<br>1960s · 1970s · 1980s<br>1990s · 2000s · 2010s</div>
+          <div class="level-key">Period</div>
+          <div class="level-vals">BC · 0-1000 · 1000-1500<br>1500-1800 · 1800-1930<br>1930-1970 · 1980-2000<br>2000-2026</div>
         </div>
         <div class="level-item">
           <div class="level-key">Style</div>
-          <div class="level-vals">Earthwork · Environmental Art<br>Site-Specific Installation<br>Monumental Sculpture<br>Conceptual Land Art<br>Ecological Art</div>
+          <div class="level-vals">Earthwork · Environmental Art<br>Site-Specific Installation<br>Monumental Sculpture<br>Conceptual Land Art · Ecological Art<br>Renaissance · Baroque<br>Impressionism · Post-Impressionism<br>Modernism · Surrealism<br>Abstract Expressionism</div>
         </div>
         <div class="level-item">
           <div class="level-key">Nation</div>
-          <div class="level-vals">USA · UK · Germany<br>Netherlands · Japan · France<br>Australia · Italy · Peru<br>Chile · Finland · Ireland<br>Morocco · Mexico · China<br>Multiple</div>
+          <div class="level-vals">USA · UK · Germany<br>Netherlands · Japan · France<br>Australia · Italy · Peru<br>Chile · Finland · Ireland<br>Morocco · Mexico · China<br>Spain · Norway · Greece · Multiple</div>
         </div>
         <div class="level-item">
           <div class="level-key">Material</div>
-          <div class="level-vals">Earth / Rock · Steel / Metal<br>Stone / Concrete<br>Natural Elements · Mixed Media<br>Soil / Mound · Water / Ice</div>
+          <div class="level-vals">Earth / Rock · Steel / Metal<br>Stone / Concrete<br>Natural Elements · Mixed Media<br>Soil / Mound · Water / Ice<br>Oil on Canvas · Watercolor<br>Marble · Bronze · Fresco</div>
         </div>
         <div class="level-item">
           <div class="level-key">Setting</div>
-          <div class="level-vals">Desert · Rural / Plains<br>Salt Flats · Coastal / Marine<br>Mountain / Highland · Urban<br>Forest / Woodland<br>Multiple Sites</div>
+          <div class="level-vals">Desert · Rural / Plains<br>Salt Flats · Coastal / Marine<br>Mountain / Highland · Urban<br>Forest / Woodland · Multiple Sites<br>Museum / Gallery<br>Outdoor / Public<br>Ruins / Historic Site</div>
+        </div>`,
+    };
+  }
+  if (mode === 'literature') {
+    return {
+      entities:    (typeof LITERATURE !== 'undefined' ? LITERATURE : []),
+      fields:      ['author', 'period', 'nationality', 'genre', 'form'],
+      fieldLabels: { author:'Author', period:'Period', nationality:'Nationality', genre:'Genre', form:'Form' },
+      title:       'lexicon',
+      subtitle:    'identify the literary work',
+      placeholder: 'name a novel, play, or poem…',
+      storageKey:  'literature-v1',
+      acMeta:      e => `${e.author} · ${e.genre}`,
+      toastUnknown:'Unknown work — choose from the list.',
+      toastRepeat: 'Already read — try another.',
+      verdictWon:  n => `✦ identified on guess ${n}`,
+      verdictLost: 'the work was',
+      countdown:   'next work surfaces in',
+      shareTitle:  'lexicon',
+      legendLevels: `
+        <div class="level-item">
+          <div class="level-key">Author</div>
+          <div class="level-vals">Shakespeare · Dickens · Tolstoy<br>Austen · Dostoevsky · Homer<br>Dante · Cervantes · Joyce<br>Kafka · Woolf · Orwell<br>Camus · Morrison · García Márquez</div>
+        </div>
+        <div class="level-item">
+          <div class="level-key">Period</div>
+          <div class="level-vals">BC · 0-1000 · 1000-1500<br>1500-1800 · 1800-1930<br>1930-1970 · 1980-2000<br>2000-2026</div>
+        </div>
+        <div class="level-item">
+          <div class="level-key">Nationality</div>
+          <div class="level-vals">British · American · French<br>Russian · German · Spanish<br>Italian · Irish · Norwegian<br>Greek · Roman · Japanese<br>Latin American · Other</div>
+        </div>
+        <div class="level-item">
+          <div class="level-key">Genre</div>
+          <div class="level-vals">Tragedy · Comedy · Epic<br>Romance · Satire · Gothic<br>Realism · Modernism · Surrealism<br>Dystopian · Historical · Mystery<br>Horror · Existential · Adventure<br>Lyric Poetry</div>
+        </div>
+        <div class="level-item">
+          <div class="level-key">Form</div>
+          <div class="level-vals">Novel · Play · Epic Poem<br>Poem · Short Story · Novella · Essay</div>
         </div>`,
     };
   }
@@ -154,6 +193,15 @@ let cfg = getModeConfig(currentMode);
       particle:[168,104,28],
       glint:   '#e0c060',
     },
+    literature: {
+      bg:      ['#1a0305','#250508','#2e060a','#1e0406'],
+      orbH:    [355, 0, 10, 345, 5], orbS: '75%', orbL: '45%', orbOp: [0.09,0.07,0.10,0.06,0.08],
+      ray:     [220,40,40],
+      line0:   '#cc2030', line1: '#991525',
+      bubble:  [220,180,185],
+      particle:[180,40,50],
+      glint:   '#f0b0b8',
+    },
   };
 
   function draw(ts) {
@@ -226,7 +274,7 @@ let cfg = getModeConfig(currentMode);
 // ═════════════════════════════════════════════════════════════════════════════
 //  GAME
 // ═════════════════════════════════════════════════════════════════════════════
-const MAX_GUESSES = 6;
+const MAX_GUESSES = 7;
 
 // ── Seeded 6-hour-period entity ──────────────────────────────────────────
 function getDayNumber() {
@@ -242,12 +290,13 @@ function getDailyEntity() {
 
 // ── State ─────────────────────────────────────────────────────────────────
 let state = {
-  target:   null,
-  guesses:  [],
-  revealed: {},
-  gameOver: false,
-  won:      false,
-  dayNum:   1,
+  target:    null,
+  guesses:   [],
+  revealed:  {},
+  gameOver:  false,
+  won:       false,
+  dayNum:    1,
+  hintsUsed: 0,
 };
 
 function makeInitialRevealed() {
@@ -270,10 +319,17 @@ function updateRevealed(comparison) {
 // ── LocalStorage persistence ──────────────────────────────────────────────
 function saveState() {
   const s = {
-    dayNum:   state.dayNum,
-    guesses:  state.guesses.map(g => g.entity.name),
-    gameOver: state.gameOver,
-    won:      state.won,
+    dayNum:    state.dayNum,
+    guesses:   state.guesses.map(g => {
+      if (g.type === 'full')     return { type: 'full',     name: g.entity.name };
+      if (g.type === 'category') return { type: 'category', field: g.field, value: g.value, matched: g.matched };
+      if (g.type === 'hint')     return { type: 'hint',     revealedField: g.revealedField };
+      // legacy fallback
+      return { type: 'full', name: g.entity.name };
+    }),
+    gameOver:  state.gameOver,
+    won:       state.won,
+    hintsUsed: state.hintsUsed,
   };
   try { localStorage.setItem(cfg.storageKey, JSON.stringify(s)); } catch(_){ }
 }
@@ -282,15 +338,25 @@ function loadSavedState() {
   try {
     const raw = JSON.parse(localStorage.getItem(cfg.storageKey));
     if (!raw || raw.dayNum !== state.dayNum) return;
-    for (const name of raw.guesses) {
-      const entity = cfg.entities.find(e => e.name === name);
-      if (!entity) continue;
-      const comparison = compare(entity, state.target);
-      state.guesses.push({ entity, comparison });
-      updateRevealed(comparison);
+    for (const g of raw.guesses) {
+      if (!g.type || g.type === 'full') {
+        const name = g.name || g; // handle old plain-string format
+        const entity = cfg.entities.find(e => e.name === name);
+        if (!entity) continue;
+        const comparison = compare(entity, state.target);
+        state.guesses.push({ type: 'full', entity, comparison });
+        updateRevealed(comparison);
+      } else if (g.type === 'category') {
+        state.guesses.push({ type: 'category', field: g.field, value: g.value, matched: g.matched });
+        if (g.matched) state.revealed[g.field] = true;
+      } else if (g.type === 'hint') {
+        state.guesses.push({ type: 'hint', revealedField: g.revealedField });
+        if (g.revealedField) state.revealed[g.revealedField] = true;
+      }
     }
-    state.gameOver = raw.gameOver;
-    state.won      = raw.won;
+    state.gameOver  = raw.gameOver;
+    state.won       = raw.won;
+    state.hintsUsed = raw.hintsUsed || 0;
   } catch(_){ }
 }
 
@@ -299,11 +365,11 @@ function makeGuess(name) {
   if (state.gameOver) return;
   const entity = cfg.entities.find(e => e.name.toLowerCase() === name.toLowerCase());
   if (!entity) { showToast(cfg.toastUnknown); return; }
-  const alreadyGuessed = state.guesses.some(g => g.entity.name === entity.name);
+  const alreadyGuessed = state.guesses.some(g => g.type === 'full' && g.entity.name === entity.name);
   if (alreadyGuessed) { showToast(cfg.toastRepeat); return; }
 
   const comparison = compare(entity, state.target);
-  state.guesses.push({ entity, comparison });
+  state.guesses.push({ type: 'full', entity, comparison });
   updateRevealed(comparison);
 
   if (comparison.correct) {
@@ -321,6 +387,70 @@ function makeGuess(name) {
   if (state.gameOver) {
     setTimeout(() => openEndModal(), 800);
   }
+}
+
+// ── Category Guess ────────────────────────────────────────────────────────
+function makeCategoryGuess(field, value) {
+  if (state.gameOver) return;
+  if (state.guesses.length >= MAX_GUESSES) return;
+  const matched = state.target[field] === value;
+  state.guesses.push({ type: 'category', field, value, matched });
+  if (matched) state.revealed[field] = true;
+  if (state.guesses.length >= MAX_GUESSES) {
+    state.gameOver = true; state.won = false;
+  }
+  saveState(); render(); clearCategoryGuess();
+  if (state.gameOver) setTimeout(() => openEndModal(), 800);
+}
+
+function handleCategoryGuess() {
+  const fieldSel = document.getElementById('cat-field-select');
+  const valueSel = document.getElementById('cat-value-select');
+  if (!fieldSel || !valueSel) return;
+  const field = fieldSel.value;
+  const value = valueSel.value;
+  if (!field || !value) { showToast('select a field and value'); return; }
+  makeCategoryGuess(field, value);
+}
+
+function clearCategoryGuess() {
+  const valueSel = document.getElementById('cat-value-select');
+  if (valueSel) valueSel.selectedIndex = 0;
+}
+
+function populateCategorySelects() {
+  const fieldSel = document.getElementById('cat-field-select');
+  const valueSel = document.getElementById('cat-value-select');
+  if (!fieldSel || !valueSel) return;
+
+  fieldSel.innerHTML = cfg.fields.map(f =>
+    `<option value="${f}">${cfg.fieldLabels[f]}</option>`
+  ).join('');
+
+  function refreshValues() {
+    const f = fieldSel.value;
+    const vals = [...new Set(cfg.entities.map(e => e[f]).filter(Boolean))].sort();
+    valueSel.innerHTML = vals.map(v => `<option value="${v}">${v}</option>`).join('');
+  }
+  refreshValues();
+  fieldSel.addEventListener('change', refreshValues);
+}
+
+// ── Hint ─────────────────────────────────────────────────────────────────
+function handleHint() {
+  if (state.gameOver || state.hintsUsed >= 3 || state.guesses.length >= MAX_GUESSES) return;
+  const unrevealed = cfg.fields.filter(f => !state.revealed[f]);
+  if (!unrevealed.length) { showToast('all categories already revealed'); return; }
+  const f = unrevealed[Math.floor(Math.random() * unrevealed.length)];
+  state.revealed[f] = true;
+  state.hintsUsed++;
+  state.guesses.push({ type: 'hint', revealedField: f });
+  if (state.guesses.length >= MAX_GUESSES) {
+    state.gameOver = true; state.won = false;
+  }
+  saveState(); render();
+  showToast(`hint: ${cfg.fieldLabels[f]} = ${state.target[f]}`);
+  if (state.gameOver) setTimeout(() => openEndModal(), 800);
 }
 
 // ── Render ───────────────────────────────────────────────────────────────
@@ -383,7 +513,43 @@ function renderBoard() {
   const board = document.getElementById('board');
   board.innerHTML = '';
 
-  state.guesses.forEach(({ entity, comparison }) => {
+  state.guesses.forEach(g => {
+    if (g.type === 'category') {
+      const row = document.createElement('div');
+      row.className = 'guess-row cat-guess entering';
+      const cell = document.createElement('div');
+      cell.className = 'g-cat-guess ' + (g.matched ? 'match' : 'wrong');
+      const label = document.createElement('span');
+      label.className = 'g-cat-guess-label';
+      label.textContent = cfg.fieldLabels[g.field];
+      const valSpan = document.createElement('span');
+      valSpan.textContent = g.value;
+      const resultSpan = document.createElement('span');
+      resultSpan.textContent = g.matched ? '✓' : '✗';
+      cell.appendChild(label); cell.appendChild(valSpan); cell.appendChild(resultSpan);
+      row.appendChild(cell);
+      board.appendChild(row);
+      return;
+    }
+
+    if (g.type === 'hint') {
+      const row = document.createElement('div');
+      row.className = 'guess-row hint-row entering';
+      const cell = document.createElement('div');
+      cell.className = 'g-hint';
+      const hintLabel = document.createElement('span');
+      hintLabel.className = 'g-hint-label';
+      hintLabel.textContent = '💡 hint';
+      const hintVal = document.createElement('span');
+      hintVal.textContent = `${cfg.fieldLabels[g.revealedField]}: ${state.target[g.revealedField]}`;
+      cell.appendChild(hintLabel); cell.appendChild(hintVal);
+      row.appendChild(cell);
+      board.appendChild(row);
+      return;
+    }
+
+    // type === 'full' (or legacy)
+    const { entity, comparison } = g;
     const row = document.createElement('div');
     row.className = 'guess-row entering';
 
@@ -418,10 +584,25 @@ function renderBoard() {
 }
 
 function renderInputState() {
-  const input = document.getElementById('search-input');
-  const btn   = document.getElementById('guess-btn');
+  const input    = document.getElementById('search-input');
+  const btn      = document.getElementById('guess-btn');
+  const hintBtn  = document.getElementById('hint-btn');
+  const catBtn   = document.getElementById('cat-guess-btn');
+  const fieldSel = document.getElementById('cat-field-select');
+  const valueSel = document.getElementById('cat-value-select');
+
   input.disabled = state.gameOver;
   btn.disabled   = state.gameOver;
+
+  if (hintBtn) {
+    const hintsLeft = 3 - state.hintsUsed;
+    hintBtn.textContent = `💡 hint (${hintsLeft} left)`;
+    hintBtn.disabled = state.gameOver || state.hintsUsed >= 3 || state.guesses.length >= MAX_GUESSES;
+  }
+  if (catBtn)   catBtn.disabled   = state.gameOver;
+  if (fieldSel) fieldSel.disabled = state.gameOver;
+  if (valueSel) valueSel.disabled = state.gameOver;
+
   if (state.gameOver) {
     document.getElementById('autocomplete').classList.remove('open');
   }
@@ -457,7 +638,7 @@ function renderAutocomplete(query) {
   const results = getFilteredEntities(query);
   if (!results.length) { ac.classList.remove('open'); return; }
 
-  const guessedNames = new Set(state.guesses.map(g => g.entity.name));
+  const guessedNames = new Set(state.guesses.filter(g => g.type === 'full').map(g => g.entity.name));
   ac.innerHTML = results.map((e, i) => {
     const alreadyGuessed = guessedNames.has(e.name);
     return `<div class="ac-item${alreadyGuessed ? ' guessed-already' : ''}" data-name="${e.name}" data-idx="${i}">
@@ -579,7 +760,7 @@ function openEndModal() {
     `${cfg.shareTitle} · ${state.won ? state.guesses.length : 'X'}/${MAX_GUESSES}`;
 
   document.getElementById('modal-share-grid').innerHTML =
-    state.guesses.map(({ entity, comparison }) =>
+    state.guesses.filter(g => g.type === 'full').map(({ entity, comparison }) =>
       `<span style="color:var(--ocean);opacity:0.7">${entity.name.padEnd(24,' ')}</span> ` +
       cfg.fields.map(f => comparison[f] ? '<span style="color:var(--foam)">■</span>' : '<span style="color:rgba(190,70,70,0.5)">■</span>').join(' ')
     ).join('\n');
@@ -607,7 +788,7 @@ function closeEndModal() {
 
 // ── Share ─────────────────────────────────────────────────────────────────
 function copyShare() {
-  const grid = state.guesses.map(({ comparison }) =>
+  const grid = state.guesses.filter(g => g.type === 'full').map(({ comparison }) =>
     cfg.fields.map(f => comparison[f] ? '🟩' : '🟥').join('')
   ).join('\n');
   const text = `${cfg.shareTitle}\n${state.won ? state.guesses.length : 'X'}/${MAX_GUESSES}\n\n${grid}\n\nplay at: homageforenki.dpdns.org`;
@@ -624,8 +805,12 @@ function renderLegendLevels() {
   if (el) el.innerHTML = cfg.legendLevels;
 }
 
-function openLegend()  {
+function openLegend() {
   renderLegendLevels();
+  const detail = document.getElementById('legend-counts-detail');
+  if (detail) { detail.classList.remove('open'); }
+  const btn = document.querySelector('.legend-counts-toggle');
+  if (btn) btn.textContent = '▸ category details';
   document.getElementById('legend-modal').classList.add('open');
 }
 function closeLegend() { document.getElementById('legend-modal').classList.remove('open'); }
@@ -633,8 +818,34 @@ document.getElementById('legend-modal').addEventListener('click', e => {
   if (e.target === document.getElementById('legend-modal')) closeLegend();
 });
 
+function renderLegendCounts() {
+  const container = document.getElementById('legend-counts-detail');
+  if (!container) return;
+  const html = cfg.fields.map(f => {
+    const counts = {};
+    cfg.entities.forEach(e => { const v = e[f]; if (v) counts[v] = (counts[v] || 0) + 1; });
+    const vals = Object.entries(counts).sort((a,b) => b[1]-a[1])
+      .map(([v,n]) => `${v} (${n})`).join(' · ');
+    return `<div class="count-item"><div class="count-key">${cfg.fieldLabels[f]}</div><div class="count-vals">${vals}</div></div>`;
+  }).join('');
+  container.innerHTML = `<div class="counts-grid">${html}</div>`;
+}
+
+function toggleLegendCounts() {
+  const el = document.getElementById('legend-counts-detail');
+  if (!el) return;
+  const isOpen = el.classList.toggle('open');
+  const btn = document.querySelector('.legend-counts-toggle');
+  if (btn) btn.textContent = isOpen ? '▾ category details' : '▸ category details';
+  if (isOpen) renderLegendCounts();
+}
+
 // ── View Toggle ───────────────────────────────────────────────────────────
 function toggleView() {
+  if (currentMode === 'literature') {
+    openLiteraturePrompt();
+    return;
+  }
   const veil = document.getElementById('theme-veil');
   veil.classList.add('visible');
 
@@ -642,29 +853,80 @@ function toggleView() {
     currentMode = currentMode === 'tiamat' ? 'country' : 'tiamat';
     cfg = getModeConfig(currentMode);
 
-    // Update body theme class
     if (currentMode === 'country') {
       document.body.classList.add('country-mode');
     } else {
       document.body.classList.remove('country-mode');
     }
 
-    // Update toggle button label
     const btn = document.getElementById('view-toggle-btn');
-    if (btn) {
-      btn.textContent = currentMode === 'tiamat' ? '⛰ landscape art' : '🌊 mythology';
-    }
+    if (btn) btn.textContent = currentMode === 'tiamat' ? '⛰ landscape art' : '🌊 mythology';
 
-    // Update page title
     document.title = currentMode === 'tiamat' ? 'tiamat · mythology' : 'country · land art';
 
-    // Re-initialize game for new mode
     initMode();
 
-    setTimeout(() => {
-      veil.classList.remove('visible');
-    }, 50);
+    setTimeout(() => veil.classList.remove('visible'), 50);
   }, 450);
+}
+
+// ── Literature Mode ───────────────────────────────────────────────────────
+function openLiteraturePrompt() {
+  if (currentMode === 'literature') {
+    const veil = document.getElementById('theme-veil');
+    veil.classList.add('visible');
+    setTimeout(() => {
+      currentMode = 'tiamat';
+      cfg = getModeConfig(currentMode);
+      document.body.classList.remove('country-mode', 'literature-mode');
+      const viewBtn = document.getElementById('view-toggle-btn');
+      if (viewBtn) viewBtn.textContent = '⛰ landscape art';
+      const litBtn = document.getElementById('lit-toggle-btn');
+      if (litBtn) litBtn.textContent = '📚 literature';
+      document.title = 'tiamat · mythology';
+      initMode();
+      setTimeout(() => veil.classList.remove('visible'), 50);
+    }, 450);
+    return;
+  }
+  const modal = document.getElementById('lit-password-modal');
+  if (!modal) return;
+  modal.classList.add('open');
+  document.getElementById('lit-pw-input').value = '';
+  document.getElementById('lit-pw-error').textContent = '';
+  setTimeout(() => document.getElementById('lit-pw-input').focus(), 50);
+}
+
+function closeLiteraturePrompt() {
+  const modal = document.getElementById('lit-password-modal');
+  if (modal) modal.classList.remove('open');
+}
+
+function submitLiteraturePassword() {
+  const pw = document.getElementById('lit-pw-input').value;
+  // Password is intentionally simple — this mode is lightly gated, not security-critical.
+  if (pw === 'password') {
+    closeLiteraturePrompt();
+    const veil = document.getElementById('theme-veil');
+    veil.classList.add('visible');
+    setTimeout(() => {
+      currentMode = 'literature';
+      cfg = getModeConfig(currentMode);
+      document.body.classList.remove('country-mode');
+      document.body.classList.add('literature-mode');
+      const viewBtn = document.getElementById('view-toggle-btn');
+      if (viewBtn) viewBtn.textContent = '🌊 mythology';
+      const litBtn = document.getElementById('lit-toggle-btn');
+      if (litBtn) litBtn.textContent = '✕ exit literature';
+      document.title = 'lexicon · literature';
+      initMode();
+      setTimeout(() => veil.classList.remove('visible'), 50);
+    }, 450);
+  } else {
+    document.getElementById('lit-pw-error').textContent = 'incorrect password';
+    document.getElementById('lit-pw-input').value = '';
+    document.getElementById('lit-pw-input').focus();
+  }
 }
 
 // ── Init ──────────────────────────────────────────────────────────────────
@@ -676,12 +938,13 @@ function initMode() {
 
   // Reset state
   state = {
-    target:   null,
-    guesses:  [],
-    revealed: makeInitialRevealed(),
-    gameOver: false,
-    won:      false,
-    dayNum:   getDayNumber(),
+    target:    null,
+    guesses:   [],
+    revealed:  makeInitialRevealed(),
+    gameOver:  false,
+    won:       false,
+    dayNum:    getDayNumber(),
+    hintsUsed: 0,
   };
 
   state.target = getDailyEntity();
@@ -690,6 +953,7 @@ function initMode() {
   document.getElementById('end-modal').classList.remove('open');
   closeLegend();
   clearSearch();
+  populateCategorySelects();
 
   // Update UI text
   document.getElementById('game-title').textContent = cfg.title;
@@ -711,14 +975,23 @@ function init() {
     document.getElementById('day-info').textContent = 'error: no entity data found.';
     return;
   }
-  state.dayNum = getDayNumber();
-  state.revealed = makeInitialRevealed();
-  state.target = getDailyEntity();
+  state.dayNum    = getDayNumber();
+  state.revealed  = makeInitialRevealed();
+  state.hintsUsed = 0;
+  state.target    = getDailyEntity();
+  populateCategorySelects();
   loadSavedState();
   render();
   if (state.gameOver) {
     setTimeout(() => openEndModal(), 400);
   }
+}
+
+const _pwInput = document.getElementById('lit-pw-input');
+if (_pwInput) {
+  _pwInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') submitLiteraturePassword();
+  });
 }
 
 init();
