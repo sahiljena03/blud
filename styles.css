@@ -741,3 +741,269 @@ body.country-mode h1 {
   .rev-node { min-width: 70px; }
   .rev-node-value { font-size: 0.62rem; max-width: 64px; }
 }
+
+/* ── LITERATURE MODE ─────────────────────────────────────────────────────── */
+body.literature-mode {
+  --void:      #1a0305;
+  --abyss:     #250508;
+  --deep:      #2e060a;
+  --midnight:  #3a080e;
+  --kelp:      #6b1018;
+  --ocean:     #9b2030;
+  --surge:     #cc3040;
+  --current:   #e05060;
+  --foam:      #f08090;
+  --caustic:   #f8b0b8;
+  --shimmer:   #fff0f2;
+  --gold:      #e04060;
+  --horizon:   #f8c0c8;
+  --aurora:    #f0d0d4;
+  --glass:     rgba(30,4,6,0.78);
+  --border:    rgba(220,60,80,0.22);
+  --borderhov: rgba(240,128,144,0.42);
+  --match-bg:   rgba(180,40,60,0.22);
+  --match-bdr:  rgba(240,128,144,0.55);
+  --wrong-bg:   rgba(120,25,30,0.2);
+  --wrong-bdr:  rgba(190,70,70,0.3);
+  --empty-bg:   rgba(26,3,5,0.42);
+  --empty-bdr:  rgba(220,60,80,0.07);
+  background: var(--void);
+}
+body.literature-mode h1 {
+  text-shadow: 0 0 60px rgba(240,128,144,0.22), 0 0 120px rgba(220,60,80,0.1);
+}
+
+/* ── HINT BUTTON ─────────────────────────────────────────────────────────── */
+#hint-area {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+#hint-btn {
+  position: relative; overflow: hidden; cursor: pointer;
+  font-family: 'Raleway', sans-serif; font-size: 0.68rem; font-weight: 300;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 0.55rem 1rem; border-radius: 1px;
+  background: transparent; border: 1px solid var(--border);
+  color: var(--current); transition: all 0.2s ease; white-space: nowrap;
+}
+#hint-btn:hover:not(:disabled) { border-color: var(--current); color: var(--foam); }
+#hint-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── CATEGORY GUESS SECTION ──────────────────────────────────────────────── */
+#cat-guess-area {
+  margin-top: 0.5rem;
+}
+.cat-guess-wrap {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.cat-guess-wrap select {
+  flex: 1;
+  background: rgba(4,12,18,0.7);
+  border: 1px solid var(--border);
+  border-bottom-color: var(--current);
+  color: var(--shimmer);
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  font-size: 0.82rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: 1px;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  appearance: none;
+}
+.cat-guess-wrap select:focus { border-color: var(--foam); }
+.cat-guess-wrap select:disabled { opacity: 0.4; cursor: not-allowed; }
+#cat-guess-btn {
+  position: relative; overflow: hidden; cursor: pointer;
+  font-family: 'Raleway', sans-serif; font-size: 0.68rem; font-weight: 300;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 0.55rem 1rem; border-radius: 1px;
+  background: var(--kelp); border: 1px solid var(--surge);
+  color: var(--shimmer); transition: all 0.2s ease; white-space: nowrap;
+}
+#cat-guess-btn:hover:not(:disabled) { background: var(--ocean); border-color: var(--foam); box-shadow: 0 0 18px rgba(10,144,128,0.3); }
+#cat-guess-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── CATEGORY GUESS BOARD ROWS ───────────────────────────────────────────── */
+.guess-row.cat-guess {
+  grid-template-columns: 1fr;
+}
+.g-cat-guess {
+  padding: 0.45rem 0.65rem;
+  font-size: 0.68rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.g-cat-guess.match {
+  background: var(--match-bg);
+  border: 1px solid var(--match-bdr);
+  color: var(--shimmer);
+}
+.g-cat-guess.wrong {
+  background: var(--wrong-bg);
+  border: 1px solid var(--wrong-bdr);
+  color: rgba(176,240,224,0.55);
+}
+.g-cat-guess-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+/* ── HINT BOARD ROWS ─────────────────────────────────────────────────────── */
+.guess-row.hint-row {
+  grid-template-columns: 1fr;
+}
+.g-hint {
+  padding: 0.45rem 0.65rem;
+  font-size: 0.68rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(208,168,64,0.08);
+  border: 1px solid rgba(208,168,64,0.25);
+  color: var(--horizon);
+}
+.g-hint-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+/* ── LITERATURE PASSWORD MODAL ───────────────────────────────────────────── */
+#lit-password-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 460;
+  background: rgba(26,3,5,0.9);
+  backdrop-filter: blur(6px);
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+#lit-password-modal.open { display: flex; }
+.lit-pw-box {
+  background: rgba(30,4,6,0.98);
+  border: 1px solid rgba(220,60,80,0.3);
+  max-width: 360px;
+  width: 100%;
+  padding: 1.75rem;
+  animation: surfaceUp 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.lit-pw-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: #e05060;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+#lit-pw-input {
+  width: 100%;
+  background: rgba(26,3,5,0.8);
+  border: 1px solid rgba(220,60,80,0.2);
+  border-bottom-color: #e05060;
+  color: #fff0f2;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  font-size: 0.9rem;
+  padding: 0.65rem 1rem;
+  border-radius: 1px;
+  outline: none;
+  margin-bottom: 0.5rem;
+  box-sizing: border-box;
+}
+#lit-pw-input:focus { border-color: #f08090; }
+.lit-pw-error {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  color: rgba(240,80,90,0.8);
+  letter-spacing: 0.1em;
+  min-height: 1.2rem;
+  margin-bottom: 1rem;
+}
+.lit-pw-btn-row {
+  display: flex;
+  gap: 0.75rem;
+}
+.lit-pw-btn-row button {
+  cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.68rem; font-weight: 300;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  padding: 0.6rem 1.2rem; border-radius: 1px;
+  transition: all 0.2s ease;
+}
+.lit-pw-btn-row button:first-child {
+  background: rgba(107,16,24,0.6); border: 1px solid #cc3040; color: #fff0f2;
+}
+.lit-pw-btn-row button:first-child:hover { background: rgba(155,32,48,0.7); border-color: #f08090; }
+.lit-pw-btn-row button:last-child {
+  background: transparent; border: 1px solid rgba(220,60,80,0.2); color: #e05060;
+}
+.lit-pw-btn-row button:last-child:hover { border-color: #e05060; color: #f08090; }
+
+/* ── LEGEND COUNTS SECTION ───────────────────────────────────────────────── */
+.legend-counts-toggle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  color: var(--current);
+  text-transform: uppercase;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  opacity: 0.7;
+  margin-top: 0.5rem;
+  display: block;
+  transition: opacity 0.2s;
+}
+.legend-counts-toggle:hover { opacity: 1; }
+#legend-counts-detail {
+  display: none;
+  margin-top: 0.75rem;
+}
+#legend-counts-detail.open { display: block; }
+.counts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 1rem;
+  font-size: 0.7rem;
+}
+.count-item {
+  display: flex;
+  flex-direction: column;
+}
+.count-key {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.52rem;
+  letter-spacing: 0.18em;
+  color: var(--current);
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-bottom: 0.15rem;
+}
+.count-vals {
+  color: var(--aurora);
+  opacity: 0.85;
+  line-height: 1.55;
+  font-size: 0.68rem;
+}
