@@ -15,6 +15,7 @@
 <!-- ── TOP BUTTONS ───────────────────────────────────────────────────────── -->
 <div id="top-btns">
   <button id="view-toggle-btn" onclick="toggleView()">⛰ landscape art</button>
+  <button id="lit-toggle-btn" onclick="openLiteraturePrompt()">📚 literature</button>
   <button id="legend-btn" onclick="openLegend()">? how to play</button>
 </div>
 
@@ -65,6 +66,16 @@
       <button id="guess-btn" onclick="handleGuessBtn()">Guess</button>
     </div>
     <div id="autocomplete"></div>
+    <div id="hint-area">
+      <button id="hint-btn" onclick="handleHint()">💡 hint (3 left)</button>
+    </div>
+    <div id="cat-guess-area">
+      <div class="cat-guess-wrap">
+        <select id="cat-field-select"></select>
+        <select id="cat-value-select"></select>
+        <button id="cat-guess-btn" onclick="handleCategoryGuess()">Check</button>
+      </div>
+    </div>
   </div>
 
 </div><!-- /app -->
@@ -106,12 +117,14 @@
       <div class="legend-text">The <strong>path at the top</strong> reveals the answer's attributes whenever a guess matches them. When all five nodes glow, you know exactly what the answer is.</div>
     </div>
     <div class="legend-entry" style="margin-bottom:1rem">
-      <div class="legend-text">You have <strong>6 guesses</strong>. A new piece surfaces every <strong>6 hours</strong>.</div>
+      <div class="legend-text">You have <strong>7 guesses</strong> (including up to 3 hints). A new piece surfaces every <strong>6 hours</strong>.</div>
     </div>
     <div class="legend-sep"></div>
     <div id="legend-levels" class="legend-levels">
       <!-- injected by JS based on current mode -->
     </div>
+    <button class="legend-counts-toggle" onclick="toggleLegendCounts()">▸ category details</button>
+    <div id="legend-counts-detail"></div>
     <div style="margin-top:1.25rem;text-align:right">
       <button class="btn-close" onclick="closeLegend()">Close</button>
     </div>
@@ -121,9 +134,23 @@
 <!-- ── THEME VEIL ──────────────────────────────────────────────────────────── -->
 <div id="theme-veil"></div>
 
+<!-- ── LITERATURE PASSWORD MODAL ─────────────────────────────────────────── -->
+<div id="lit-password-modal">
+  <div class="lit-pw-box">
+    <div class="lit-pw-title">literature · restricted access</div>
+    <input type="password" id="lit-pw-input" placeholder="enter password…" autocomplete="off">
+    <div class="lit-pw-error" id="lit-pw-error"></div>
+    <div class="lit-pw-btn-row">
+      <button onclick="submitLiteraturePassword()">Enter</button>
+      <button onclick="closeLiteraturePrompt()">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <!-- ── DATA (external) ───────────────────────────────────────────────────── -->
 <script src="data.js"></script>
 <script src="art.js"></script>
+<script src="literature.js"></script>
 
 <!-- ── GAME SCRIPT (external) ─────────────────────────────────────────────── -->
 <script src="script.js"></script>
